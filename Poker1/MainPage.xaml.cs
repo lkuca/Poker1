@@ -13,15 +13,16 @@ public partial class MainPage : ContentPage
     {
         InitializeComponent();
         hand = new List<Card>();
+        CanvasView.PaintSurface += OnCanvasViewPaintSurface;
     }
 
     private void OnDealButtonClicked(object sender, EventArgs e)
     {
         DealHand();
-        CanvasView.InvalidateSurface();
+        CanvasView.InvalidateSurface(); // Request the canvas to be redrawn
     }
 
-    private void OnCanvasViewPaintSurface(object sender, SKPaintGLSurfaceEventArgs e)
+    private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
         var canvas = e.Surface.Canvas;
         canvas.Clear(SKColors.Green);

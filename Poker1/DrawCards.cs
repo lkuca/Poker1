@@ -9,65 +9,69 @@ namespace Poker1
 {
     public static class DrawCards
     {
-        public static void DrawCardOutline(SKCanvas canvas, int x, int y)
+        public static void DrawCardOutline(SKCanvas canvas, float x, float y)
         {
             var paint = new SKPaint
             {
                 Color = SKColors.White,
-                Style = SKPaintStyle.Stroke,
-                StrokeWidth = 2
-            };
-
-            int width = 100;
-            int height = 140;
-
-            float left = x;
-            float top = y;
-            float right = left + width;
-            float bottom = top + height;
-
-            var rect = new SKRect(left, top, right, bottom);
-            canvas.DrawRect(rect, paint);
-        }
-
-        public static void DrawCardSuitValue(SKCanvas canvas, Card card, int x, int y)
-        {
-            char cardSuit = ' ';
-            SKColor suitColor = SKColors.Black;
-
-            // Determine the suit and color
-            switch (card.MySuit)
-            {
-                case Card.SUIT.HEARTS:
-                    cardSuit = '♥';
-                    suitColor = SKColors.Red;
-                    break;
-                case Card.SUIT.DIAMONDS:
-                    cardSuit = '♦';
-                    suitColor = SKColors.Orange;
-                    break;
-                case Card.SUIT.CLUBS:
-                    cardSuit = '♣';
-                    suitColor = SKColors.Blue;
-                    break;
-                case Card.SUIT.SPADES:
-                    cardSuit = '♠';
-                    suitColor = SKColors.Black;
-                    break;
-            }
-
-            // Draw the suit and value
-            var paint = new SKPaint
-            {
-                Color = suitColor,
-                TextSize = 24,
+                Style = SKPaintStyle.Fill,
                 IsAntialias = true
             };
 
-            float posX = x + 10;
-            float posY = y + 30;
+            var rect = new SKRect(x, y, x + 100, y + 150); // Card size: 100x150
+            canvas.DrawRect(rect, paint);
 
-            canvas.DrawText($"{card.MyValue} {cardSuit}", posX, posY, paint);
+            paint.Color = SKColors.Black;
+            paint.Style = SKPaintStyle.Stroke;
+            paint.StrokeWidth = 2;
+            canvas.DrawRect(rect, paint);
+        }
+
+        public static void DrawCardSuitValue(SKCanvas canvas, Card card, float x, float y)
+        {
+            var textPaint = new SKPaint
+            {
+                Color = SKColors.Black,
+                TextSize = 24,
+                IsAntialias = true,
+                TextAlign = SKTextAlign.Center,
+                 Typeface = SKTypeface.FromFamilyName("Arial Unicode MS", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
+            };
+
+            var suitPaint = new SKPaint
+            {
+                Color = GetSuitColor(card.MySuit),
+                TextSize = 40,
+                IsAntialias = true,
+                TextAlign = SKTextAlign.Center,
+                Typeface = SKTypeface.FromFamilyName("Arial Unicode MS", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
+
+            };
+
+            // Draw card value at the top-left
+            canvas.DrawText(card.MyValue, x + 20, y + 30, textPaint);
+
+            // Draw suit symbol at the center
+            var suitSymbol = GetSuitSymbol(card.MySuit);
+            canvas.DrawText(suitSymbol, x + 50, y + 90, suitPaint);
+        }
+
+        private static string GetSuitSymbol(Card.SUIT suit)
+        {
+            return suit switch
+            {
+
+                Card.SUIT.HEARTS => Encoding.GetEncoding(437).GetChars(new byte[] { 3 })[0].ToString(),
+                Card.SUIT.DIAMONDS => Encoding.GetEncoding(437).GetChars(new byte[] { 4 })[0].ToString(),
+                Card.SUIT.CLUBS => Encoding.GetEncoding(437).GetChars(new byte[] { 5 })[0].ToString(),
+                Card.SUIT.SPADES => Encoding.GetEncoding(437).GetChars(new byte[] { 6 })[0].ToString(),
+                _ => throw new ArgumentOutOfRangeException()
+            } ;
+        }
+
+        private static SKColor GetSuitColor(Card.SUIT suit)
+        {
+            return (suit == Card.SUIT.HEARTS || suit == Card.SUIT.DIAMONDS) ? SKColors.Red : SKColors.Black;
         }
     }
 }
