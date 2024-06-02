@@ -56,18 +56,30 @@ namespace Poker1
             canvas.DrawText(suitSymbol, x + 50, y + 90, suitPaint);
         }
 
+        //private static string GetSuitSymbol(Card.SUIT suit)
+        //{
+            //return suit switch
+            //{
+
+                //Card.SUIT.HEARTS => Encoding.GetEncoding(437).GetChars(new byte[] { 3 })[0].ToString(),
+                //Card.SUIT.DIAMONDS => Encoding.GetEncoding(437).GetChars(new byte[] { 4 })[0].ToString(),
+                //Card.SUIT.CLUBS => Encoding.GetEncoding(437).GetChars(new byte[] { 5 })[0].ToString(),
+                //Card.SUIT.SPADES => Encoding.GetEncoding(437).GetChars(new byte[] { 6 })[0].ToString(),
+                //_ => throw new ArgumentOutOfRangeException()
+            //} ;
+        //}
         private static string GetSuitSymbol(Card.SUIT suit)
         {
             return suit switch
             {
-
-                Card.SUIT.HEARTS => Encoding.GetEncoding(437).GetChars(new byte[] { 3 })[0].ToString(),
-                Card.SUIT.DIAMONDS => Encoding.GetEncoding(437).GetChars(new byte[] { 4 })[0].ToString(),
-                Card.SUIT.CLUBS => Encoding.GetEncoding(437).GetChars(new byte[] { 5 })[0].ToString(),
-                Card.SUIT.SPADES => Encoding.GetEncoding(437).GetChars(new byte[] { 6 })[0].ToString(),
+                Card.SUIT.HEARTS => "♥",
+                Card.SUIT.DIAMONDS => "♦",
+                Card.SUIT.CLUBS => "♣️",
+                Card.SUIT.SPADES => "♠",
                 _ => throw new ArgumentOutOfRangeException()
-            } ;
+            };
         }
+
 
         private static SKColor GetSuitColor(Card.SUIT suit)
         {
