@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace Poker1
 {
-    public static class DrawCards
+    public class DrawCards
     {
+        
+        static DrawCards()
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+        }
         public static void DrawCardOutline(SKCanvas canvas, float x, float y)
         {
             var paint = new SKPaint
@@ -32,19 +37,19 @@ namespace Poker1
             var textPaint = new SKPaint
             {
                 Color = SKColors.Black,
-                TextSize = 24,
+                TextSize = 34,
                 IsAntialias = true,
                 TextAlign = SKTextAlign.Center,
-                 Typeface = SKTypeface.FromFamilyName("Arial Unicode MS", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
+                 Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
             };
 
             var suitPaint = new SKPaint
             {
                 Color = GetSuitColor(card.MySuit),
-                TextSize = 40,
+                TextSize = 100,
                 IsAntialias = true,
                 TextAlign = SKTextAlign.Center,
-                Typeface = SKTypeface.FromFamilyName("Arial Unicode MS", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
+                Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
 
             };
 
@@ -55,16 +60,20 @@ namespace Poker1
             var suitSymbol = GetSuitSymbol(card.MySuit);
             canvas.DrawText(suitSymbol, x + 50, y + 90, suitPaint);
         }
-
-        private static string GetSuitSymbol(Card.SUIT suit)
+       
+        public static string GetSuitSymbol(Card.SUIT suit)
         {
+            List<string> b = new List<string> { "♥", "♦", "♣", "♠" };
             return suit switch
             {
-
-                Card.SUIT.HEARTS => Encoding.GetEncoding(437).GetChars(new byte[] { 3 })[0].ToString(),
-                Card.SUIT.DIAMONDS => Encoding.GetEncoding(437).GetChars(new byte[] { 4 })[0].ToString(),
-                Card.SUIT.CLUBS => Encoding.GetEncoding(437).GetChars(new byte[] { 5 })[0].ToString(),
-                Card.SUIT.SPADES => Encoding.GetEncoding(437).GetChars(new byte[] { 6 })[0].ToString(),
+                Card.SUIT.HEARTS => b[0].ToString(),
+                Card.SUIT.DIAMONDS => b[1].ToString(),
+                Card.SUIT.CLUBS => b[2].ToString(),
+                Card.SUIT.SPADES => b[3].ToString(),
+                //Card.SUIT.HEARTS => Encoding.GetEncoding(437).GetChars(new byte[] { 3 })[0].ToString(),
+                //Card.SUIT.DIAMONDS => Encoding.GetEncoding(437).GetChars(new byte[] { 4 })[0].ToString(),
+                //Card.SUIT.CLUBS => Encoding.GetEncoding(437).GetChars(new byte[] { 5 })[0].ToString(),
+                //Card.SUIT.SPADES => Encoding.GetEncoding(437).GetChars(new byte[] { 6 })[0].ToString(),
                 _ => throw new ArgumentOutOfRangeException()
             } ;
         }
@@ -73,5 +82,6 @@ namespace Poker1
         {
             return (suit == Card.SUIT.HEARTS || suit == Card.SUIT.DIAMONDS) ? SKColors.Red : SKColors.Black;
         }
+
     }
 }
