@@ -1,9 +1,5 @@
 ﻿using SkiaSharp;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Poker1
 {
@@ -18,7 +14,7 @@ namespace Poker1
                 IsAntialias = true
             };
 
-            var rect = new SKRect(x, y, x + 100, y + 150); // Card size: 100x150
+            var rect = new SKRect(x, y, x + 100, y + 150); 
             canvas.DrawRect(rect, paint);
 
             paint.Color = SKColors.Black;
@@ -35,7 +31,7 @@ namespace Poker1
                 TextSize = 24,
                 IsAntialias = true,
                 TextAlign = SKTextAlign.Center,
-                 Typeface = SKTypeface.FromFamilyName("Arial Unicode MS", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
+                Typeface = SKTypeface.FromFamilyName("Segoe UI", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
             };
 
             var suitPaint = new SKPaint
@@ -44,46 +40,33 @@ namespace Poker1
                 TextSize = 40,
                 IsAntialias = true,
                 TextAlign = SKTextAlign.Center,
-                Typeface = SKTypeface.FromFamilyName("Arial Unicode MS", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
-
+                Typeface = SKTypeface.FromFamilyName("Segoe UI", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
             };
 
-            // Draw card value at the top-left
+            
             canvas.DrawText(card.MyValue, x + 20, y + 30, textPaint);
 
-            // Draw suit symbol at the center
+            
             var suitSymbol = GetSuitSymbol(card.MySuit);
             canvas.DrawText(suitSymbol, x + 50, y + 90, suitPaint);
         }
 
-        //private static string GetSuitSymbol(Card.SUIT suit)
-        //{
-            //return suit switch
-            //{
-
-                //Card.SUIT.HEARTS => Encoding.GetEncoding(437).GetChars(new byte[] { 3 })[0].ToString(),
-                //Card.SUIT.DIAMONDS => Encoding.GetEncoding(437).GetChars(new byte[] { 4 })[0].ToString(),
-                //Card.SUIT.CLUBS => Encoding.GetEncoding(437).GetChars(new byte[] { 5 })[0].ToString(),
-                //Card.SUIT.SPADES => Encoding.GetEncoding(437).GetChars(new byte[] { 6 })[0].ToString(),
-                //_ => throw new ArgumentOutOfRangeException()
-            //} ;
-        //}
         private static string GetSuitSymbol(Card.SUIT suit)
         {
             return suit switch
             {
-                Card.SUIT.HEARTS => "♥",
-                Card.SUIT.DIAMONDS => "♦",
-                Card.SUIT.CLUBS => "♣️",
-                Card.SUIT.SPADES => "♠",
+                Card.SUIT.heart => "\u2665", // ♥
+                Card.SUIT.diamond => "\u2666", // ♦
+                Card.SUIT.club => "\u2663", // ♣
+                Card.SUIT.spade => "\u2660", // ♠
                 _ => throw new ArgumentOutOfRangeException()
             };
         }
 
-
         private static SKColor GetSuitColor(Card.SUIT suit)
         {
-            return (suit == Card.SUIT.HEARTS || suit == Card.SUIT.DIAMONDS) ? SKColors.Red : SKColors.Black;
+            return (suit == Card.SUIT.heart || suit == Card.SUIT.diamond) ? SKColors.Red : SKColors.Black;
         }
     }
+
 }

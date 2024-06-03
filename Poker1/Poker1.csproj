@@ -49,8 +49,78 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\ace_club.jpg" />
+	  <None Remove="Resources\Images\ace_diamond.jpg" />
+	  <None Remove="Resources\Images\ace_heart.jpg" />
+	  <None Remove="Resources\Images\ace_spade.jpg" />
+	  <None Remove="Resources\Images\eight_club.jpg" />
+	  <None Remove="Resources\Images\eight_diamond.jpg" />
+	  <None Remove="Resources\Images\eight_heart.jpg" />
+	  <None Remove="Resources\Images\eight_spade.jpg" />
+	  <None Remove="Resources\Images\five_club.jpg" />
+	  <None Remove="Resources\Images\five_diamond.jpg" />
+	  <None Remove="Resources\Images\five_heart.jpg" />
+	  <None Remove="Resources\Images\five_spade.jpg" />
+	  <None Remove="Resources\Images\four_club.jpg" />
+	  <None Remove="Resources\Images\four_diamod.jpg" />
+	  <None Remove="Resources\Images\four_heart.jpg" />
+	  <None Remove="Resources\Images\four_spade.jpg" />
+	  <None Remove="Resources\Images\jack_club.jpg" />
+	  <None Remove="Resources\Images\jack_diamond.jpg" />
+	  <None Remove="Resources\Images\jack_heart.jpg" />
+	  <None Remove="Resources\Images\jack_spade.jpg" />
+	  <None Remove="Resources\Images\king_club.jpg" />
+	  <None Remove="Resources\Images\king_diamond.jpg" />
+	  <None Remove="Resources\Images\king_heart.jpg" />
+	  <None Remove="Resources\Images\king_spade.jpg" />
+	  <None Remove="Resources\Images\nine_club.jpg" />
+	  <None Remove="Resources\Images\nine_diamond.jpg" />
+	  <None Remove="Resources\Images\nine_heart.jpg" />
+	  <None Remove="Resources\Images\nine_spade.jpg" />
+	  <None Remove="Resources\Images\queen_club.jpg" />
+	  <None Remove="Resources\Images\queen_diamond.jpg" />
+	  <None Remove="Resources\Images\queen_spade.jpg" />
+	  <None Remove="Resources\Images\quenn_heart.jpg" />
+	  <None Remove="Resources\Images\seven_club.jpg" />
+	  <None Remove="Resources\Images\seven_diamond.jpg" />
+	  <None Remove="Resources\Images\seven_heart.jpg" />
+	  <None Remove="Resources\Images\seven_spade.jpg" />
+	  <None Remove="Resources\Images\six_club.jpg" />
+	  <None Remove="Resources\Images\six_diamond.jpg" />
+	  <None Remove="Resources\Images\six_heart.jpg" />
+	  <None Remove="Resources\Images\six_spade.jpg" />
+	  <None Remove="Resources\Images\ten_club.jpg" />
+	  <None Remove="Resources\Images\ten_diamond.jpg" />
+	  <None Remove="Resources\Images\ten_heart.jpg" />
+	  <None Remove="Resources\Images\ten_spade.jpg" />
+	  <None Remove="Resources\Images\three_club.jpg" />
+	  <None Remove="Resources\Images\three_diamond.jpg" />
+	  <None Remove="Resources\Images\three_heart.jpg" />
+	  <None Remove="Resources\Images\three_spade.jpg" />
+	  <None Remove="Resources\Images\two_club.jpg" />
+	  <None Remove="Resources\Images\two_diamond.jpg" />
+	  <None Remove="Resources\Images\two_heart.jpg" />
+	  <None Remove="Resources\Images\two_spade.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.8" />
 	  <PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.8" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>

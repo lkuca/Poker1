@@ -7,7 +7,7 @@
 
     <StackLayout>
         <Button x:Name="DealButton" Text="Deal Cards" Clicked="OnDealButtonClicked" />
-        <skia:SKCanvasView x:Name="CanvasView" PaintSurface="OnCanvasViewPaintSurface" HeightRequest="400" />
+        <skia:SKCanvasView x:Name="CanvasView" PaintSurface="OnCanvasViewPaintSurface" HeightRequest="600" />
     </StackLayout>
           
 

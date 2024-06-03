@@ -10,10 +10,10 @@ namespace Poker1
     {
         public enum SUIT
         {
-            HEARTS,
-            DIAMONDS,
-            CLUBS,
-            SPADES
+            heart,
+            diamond,
+            club,
+            spade
         }
 
         public SUIT MySuit { get; set; }
