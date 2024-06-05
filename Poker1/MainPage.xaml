@@ -8,6 +8,10 @@
     <StackLayout>
         <Button x:Name="DealButton" Text="Deal Cards" Clicked="OnDealButtonClicked" />
         <skia:SKCanvasView x:Name="CanvasView" PaintSurface="OnCanvasViewPaintSurface" HeightRequest="400" />
+        <Label x:Name="WinnerLabel" Text="Winner will be shown here" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20" />
+        <Label x:Name="PlayerWinsLabel" Text="Player Wins: 0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20" />
+        <Label x:Name="PcWinsLabel" Text="PC Wins: 0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20" />
+        <Button Text="Show Poker Rules" Clicked="OnShowPokerRulesClicked" />
     </StackLayout>
           
 

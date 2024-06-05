@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Poker1.PokerRules"
+             Title="PokerRules">
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Padding="10">
+                <Label Text="Poker Rules" FontSize="24" HorizontalOptions="Center" />
+                <Label Text="1. Each player is dealt a certain number of cards, which are hidden from the other players." FontSize="18" />
+                <Label Text="2. Players bet on the strength of their hands." FontSize="18" />
+                <Label Text="3. The goal is to make the best hand possible according to the standard poker hand rankings." FontSize="18" />
+                <Label Text="4. The hand rankings from highest to lowest are:" FontSize="18" />
+                <Label Text="- Royal Flush" FontSize="18" />
+                <Label Text="- Straight Flush" FontSize="18" />
+                <Label Text="- Four of a Kind" FontSize="18" />
+                <Label Text="- Full House" FontSize="18" />
+                <Label Text="- Flush" FontSize="18" />
+                <Label Text="- Straight" FontSize="18" />
+                <Label Text="- Three of a Kind" FontSize="18" />
+                <Label Text="- Two Pair" FontSize="18" />
+                <Label Text="- One Pair" FontSize="18" />
+                <Label Text="- High Card" FontSize="18" />
+                <Label Text="5. The player with the best hand wins the pot." FontSize="18" />
+                <Label Text="6. In case of a tie, the pot is split among the tied players." FontSize="18" />
+                <Button Text="Close" Clicked="OnCloseButtonClicked" />
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -14,11 +14,11 @@ namespace Poker1
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
-        public static void DrawCardOutline(SKCanvas canvas, float x, float y)
+        public static void DrawCardOutline(SKCanvas canvas, float x, float y, bool highlight = false)
         {
             var paint = new SKPaint
             {
-                Color = SKColors.White,
+                Color = highlight ? SKColors.Blue : SKColors.White,
                 Style = SKPaintStyle.Fill,
                 IsAntialias = true
             };

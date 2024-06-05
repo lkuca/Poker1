@@ -10,6 +10,9 @@ public partial class MainPage : ContentPage
     private List<Card> hand;
     private List<Card> playerHand;
     private List<Card> pcHand;
+    private int playerWins = 0;
+    private int pcWins = 0;
+    private const float xOffset = 50;
 
     public MainPage()
     {
@@ -18,37 +21,66 @@ public partial class MainPage : ContentPage
         playerHand = new List<Card>();
         pcHand = new List<Card>();
         CanvasView.PaintSurface += OnCanvasViewPaintSurface;
+        
     }
 
     private void OnDealButtonClicked(object sender, EventArgs e)
     {
         DealHand();
+        DetermineWinner();
         CanvasView.InvalidateSurface(); // Request the canvas to be redrawn
     }
+    private void OnShowPokerRulesClicked(object sender, EventArgs e)
+    {
+        Navigation.PushModalAsync(new PokerRules());
+    }
+
+
+
 
     private void OnCanvasViewPaintSurface(object sender, SKPaintSurfaceEventArgs e)
     {
         var canvas = e.Surface.Canvas;
         canvas.Clear(SKColors.Green);
 
+
+        DrawLabel(canvas, "Community Cards", 10, 40);
         for (int i = 0; i < hand.Count; i++)
         {
-            DrawCards.DrawCardOutline(canvas, i * 120, 0);
-            DrawCards.DrawCardSuitValue(canvas, hand[i], i * 120, 0);
-            
+            float xPosition = xOffset + i * 120;
+            DrawCards.DrawCardOutline(canvas, xPosition, 40);
+            DrawCards.DrawCardSuitValue(canvas, hand[i], xPosition, 40);
+
         }
+        DrawLabel(canvas, "Player's Cards", 10, 210);
         for (int i = 0; i < playerHand.Count; i++)
         {
-            DrawCards.DrawCardOutline(canvas, i * 120, 150);
-            DrawCards.DrawCardSuitValue(canvas, playerHand[i], i * 120, 150);
+            float xPosition = xOffset + i * 120;
+            DrawCards.DrawCardOutline(canvas, xPosition, 220);
+            DrawCards.DrawCardSuitValue(canvas, playerHand[i], xPosition, 220);
         }
 
         // Draw PC's cards
+        DrawLabel(canvas, "PC's Cards", 10, 392);
         for (int i = 0; i < pcHand.Count; i++)
         {
-            DrawCards.DrawCardOutline(canvas, i * 120, 300);
-            DrawCards.DrawCardSuitValue(canvas, pcHand[i], i * 120, 300);
+            float xPosition = xOffset + i * 120;
+            DrawCards.DrawCardOutline(canvas, xPosition, 400);
+            DrawCards.DrawCardSuitValue(canvas, pcHand[i], xPosition, 400);
         }
+
+    }
+    private void DrawLabel(SKCanvas canvas, string text, float x, float y)
+    {
+        var textPaint = new SKPaint
+        {
+            Color = SKColors.Yellow,
+            TextSize = 36,
+            IsAntialias = true,
+            TextAlign = SKTextAlign.Left,
+            Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
+        };
+        canvas.DrawText(text, x, y, textPaint);
     }
 
     private void DealHand()
@@ -99,5 +131,58 @@ public partial class MainPage : ContentPage
         }
 
     }
+    private void DetermineWinner()
+    {
+
+        int playerScore = EvaluateHand(playerHand);
+        int pcScore = EvaluateHand(pcHand);
+
+        if (playerScore > pcScore)
+        {
+            playerWins++;
+            WinnerLabel.Text = "Player Wins!";
+        }
+        else if (pcScore > playerScore)
+        {
+            pcWins++;
+            WinnerLabel.Text = "PC Wins!";
+        }
+        else
+        {
+            WinnerLabel.Text = "It's a Tie!";
+        }
+        PlayerWinsLabel.Text = $"Player Wins: {playerWins}";
+        PcWinsLabel.Text = $"PC Wins: {pcWins}";
+        // In case of a tie, no one wins
+    }
+
+    private int EvaluateHand(List<Card> hand)
+    {
+        // Simplified evaluation: just adding up card values
+        int score = 0;
+        foreach (var card in hand)
+        {
+            switch (card.MyValue)
+            {
+                case "A":
+                    score += 14; // Usually, Ace is high
+                    break;
+                case "K":
+                    score += 13;
+                    break;
+                case "Q":
+                    score += 12;
+                    break;
+                case "J":
+                    score += 11;
+                    break;
+                default:
+                    score += int.Parse(card.MyValue);
+                    break;
+            }
+        }
+        return score;
+    }
 }
+
 
