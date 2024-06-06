@@ -9,11 +9,35 @@ namespace Poker1
 {
     public class DrawCards
     {
-        
+        private static readonly SKBitmap heartBitmap;
+        private static readonly SKBitmap diamondBitmap;
+        private static readonly SKBitmap clubBitmap;
+        private static readonly SKBitmap spadeBitmap;
+        string folderPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+
         static DrawCards()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            heartBitmap = LoadBitmap(@"Resources/Images/hearts1.jpg");
+            diamondBitmap = LoadBitmap(@"Resources/Images/diamonds1.png");
+            clubBitmap = LoadBitmap(@"Resources/Images/clubs1.jpg");
+            spadeBitmap = LoadBitmap(@"Resources/Images/spades1.jpg");
+
+
+
         }
+        private static SKBitmap LoadBitmap(string imageName)
+        {
+            // Construct the path to the image file
+            string imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "Images", imageName);
+
+            // Open the file stream and decode the bitmap
+            using (var stream = File.OpenRead(imagePath))
+            {
+                return SKBitmap.Decode(stream);
+            }
+        }
+
         public static void DrawCardOutline(SKCanvas canvas, float x, float y, bool highlight = false)
         {
             var paint = new SKPaint
@@ -57,25 +81,36 @@ namespace Poker1
             canvas.DrawText(card.MyValue, x + 20, y + 30, textPaint);
 
             // Draw suit symbol at the center
-            var suitSymbol = GetSuitSymbol(card.MySuit);
-            canvas.DrawText(suitSymbol, x + 50, y + 90, suitPaint);
+            var suitBitmap = GetSuitSymbol(card.MySuit);
+            if (suitBitmap != null)
+            {
+                canvas.DrawBitmap(suitBitmap, new SKRect(x + 25, y + 50, x + 75, y + 100));
+            }
         }
        
-        public static string GetSuitSymbol(Card.SUIT suit)
+        public static SKBitmap GetSuitSymbol(Card.SUIT suit)
         {
-            List<string> b = new List<string> { "♥", "♦", "♣", "♠" };
             return suit switch
             {
-                Card.SUIT.HEARTS => b[0].ToString(),
-                Card.SUIT.DIAMONDS => b[1].ToString(),
-                Card.SUIT.CLUBS => b[2].ToString(),
-                Card.SUIT.SPADES => b[3].ToString(),
-                //Card.SUIT.HEARTS => Encoding.GetEncoding(437).GetChars(new byte[] { 3 })[0].ToString(),
-                //Card.SUIT.DIAMONDS => Encoding.GetEncoding(437).GetChars(new byte[] { 4 })[0].ToString(),
-                //Card.SUIT.CLUBS => Encoding.GetEncoding(437).GetChars(new byte[] { 5 })[0].ToString(),
-                //Card.SUIT.SPADES => Encoding.GetEncoding(437).GetChars(new byte[] { 6 })[0].ToString(),
+                Card.SUIT.HEARTS => heartBitmap,
+                Card.SUIT.DIAMONDS => diamondBitmap,
+                Card.SUIT.CLUBS => clubBitmap,
+                Card.SUIT.SPADES => spadeBitmap,
                 _ => throw new ArgumentOutOfRangeException()
-            } ;
+            };
+            //List<string> b = new List<string> { "♥", "♦", "♣", "♠" };
+            //return suit switch
+            //{
+            //    Card.SUIT.HEARTS => b[0].ToString(),
+            //    Card.SUIT.DIAMONDS => b[1].ToString(),
+            //    Card.SUIT.CLUBS => b[2].ToString(),
+            //    Card.SUIT.SPADES => b[3].ToString(),
+            //    //Card.SUIT.HEARTS => Encoding.GetEncoding(437).GetChars(new byte[] { 3 })[0].ToString(),
+            //    //Card.SUIT.DIAMONDS => Encoding.GetEncoding(437).GetChars(new byte[] { 4 })[0].ToString(),
+            //    //Card.SUIT.CLUBS => Encoding.GetEncoding(437).GetChars(new byte[] { 5 })[0].ToString(),
+            //    //Card.SUIT.SPADES => Encoding.GetEncoding(437).GetChars(new byte[] { 6 })[0].ToString(),
+            //    _ => throw new ArgumentOutOfRangeException()
+            //} ;
         }
 
         private static SKColor GetSuitColor(Card.SUIT suit)
