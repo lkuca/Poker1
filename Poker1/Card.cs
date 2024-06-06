@@ -19,4 +19,5 @@ namespace Poker1
         public SUIT MySuit { get; set; }
         public string MyValue { get; set; }
     }
+
 }
