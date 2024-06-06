@@ -1,11 +1,21 @@
-﻿namespace Poker1;
+﻿using Microsoft.Maui.Controls;
 
-public partial class App : Application
+namespace Poker1
 {
-	public App()
-	{
-		InitializeComponent();
+    public partial class App : Application
+    {
+        public App()
+        {
+            InitializeComponent();
 
-		MainPage = new AppShell();
-	}
+
+            MainPage = new NavigationPage(new NameEntryPage());
+        }
+
+
+        public void GoToMainPage(string playerName)
+        {
+            MainPage = new MainPage(playerName);
+        }
+    }
 }
