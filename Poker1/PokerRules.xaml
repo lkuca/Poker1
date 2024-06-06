@@ -7,10 +7,10 @@
         <ScrollView>
             <VerticalStackLayout Padding="10">
                 <Label Text="Poker Rules" FontSize="24" HorizontalOptions="Center" />
-                <Label Text="1. Each player is dealt a certain number of cards, which are hidden from the other players." FontSize="18" />
-                <Label Text="2. Players bet on the strength of their hands." FontSize="18" />
-                <Label Text="3. The goal is to make the best hand possible according to the standard poker hand rankings." FontSize="18" />
-                <Label Text="4. The hand rankings from highest to lowest are:" FontSize="18" />
+                <Label Text="1. Igale mängijale jagatakse teatud arv kaarte, mis on teiste mängijate eest peidetud." FontSize="18" />
+                <Label Text="2. Mängijad panustavad oma käte tugevusele." FontSize="18" />
+                <Label Text="3. Eesmärk on teha parim võimalik jaotus standardse pokkerikäte edetabeli järgi." FontSize="18" />
+                <Label Text="4. Käte paremusjärjestus kõrgeimast madalaimani on:" FontSize="18" />
                 <Label Text="- Royal Flush" FontSize="18" />
                 <Label Text="- Straight Flush" FontSize="18" />
                 <Label Text="- Four of a Kind" FontSize="18" />
@@ -21,8 +21,8 @@
                 <Label Text="- Two Pair" FontSize="18" />
                 <Label Text="- One Pair" FontSize="18" />
                 <Label Text="- High Card" FontSize="18" />
-                <Label Text="5. The player with the best hand wins the pot." FontSize="18" />
-                <Label Text="6. In case of a tie, the pot is split among the tied players." FontSize="18" />
+                <Label Text="5. Parima käega mängija võidab panga." FontSize="18" />
+                <Label Text="6. Võrdse mängu korral jagatakse pank võrdsete mängijate vahel.." FontSize="18" />
                 <Button Text="Close" Clicked="OnCloseButtonClicked" />
             </VerticalStackLayout>
         </ScrollView>
