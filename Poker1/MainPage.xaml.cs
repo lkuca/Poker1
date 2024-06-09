@@ -13,7 +13,9 @@ public partial class MainPage : ContentPage
     private int playerWins = 0;
     private int pcWins = 0;
     private const float xOffset = 50;
-
+    private DatabaseService _databaseService;
+    private Player _player;
+    private Player _pc;
     public MainPage()
     {
         InitializeComponent();
@@ -21,8 +23,35 @@ public partial class MainPage : ContentPage
         playerHand = new List<Card>();
         pcHand = new List<Card>();
         CanvasView.PaintSurface += OnCanvasViewPaintSurface;
-        
+
+        _databaseService = new DatabaseService("players.db");
+        InitializePlayers().Wait();
     }
+    private async Task InitializePlayers()
+    {
+        // Retrieve player and PC records from the database
+        var players = await _databaseService.GetPlayersAsync();
+
+        // Check if players exist, if not, create them
+        _player = players.FirstOrDefault(p => p.Name == "Player");
+        if (_player == null)
+        {
+            _player = new Player { Name = "Player", Wins = 0 };
+            await _databaseService.SavePlayerAsync(_player);
+        }
+
+        _pc = players.FirstOrDefault(p => p.Name == "PC");
+        if (_pc == null)
+        {
+            _pc = new Player { Name = "PC", Wins = 0 };
+            await _databaseService.SavePlayerAsync(_pc);
+        }
+
+        playerWins = _player.Wins;
+        pcWins = _pc.Wins;
+        UpdateWinLabels();
+    }
+
 
     private void OnDealButtonClicked(object sender, EventArgs e)
     {
@@ -154,6 +183,19 @@ public partial class MainPage : ContentPage
         PlayerWinsLabel.Text = $"Player Wins: {playerWins}";
         PcWinsLabel.Text = $"PC Wins: {pcWins}";
         // In case of a tie, no one wins
+        UpdateWinLabels();
+        SaveScores();
+    }
+    private void UpdateWinLabels()
+    {
+        PlayerWinsLabel.Text = $"Player Wins: {playerWins}";
+        PcWinsLabel.Text = $"PC Wins: {pcWins}";
+    }
+
+    private void SaveScores()
+    {
+        _databaseService.SavePlayerAsync(_player);
+        _databaseService.SavePlayerAsync(_pc);
     }
 
     private int EvaluateHand(List<Card> hand)
