@@ -12,6 +12,7 @@
         <Label x:Name="PlayerWinsLabel" Text="Player Wins: 0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20" />
         <Label x:Name="PcWinsLabel" Text="PC Wins: 0" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20" />
         <Button Text="Show Poker Rules" Clicked="OnShowPokerRulesClicked" />
+        <Button Text="Show Statistics" Clicked="OnShowStatisticsClicked" />
     </StackLayout>
           
 

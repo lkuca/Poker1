@@ -10,13 +10,13 @@ namespace Poker1
     public class Player
     {
         [PrimaryKey, AutoIncrement]
-        public int Id { get; set; } // Добавляем свойство Id
+        public int Id { get; set; } 
         public string Name { get; set; }
         public int Wins { get; set; }
 
         public Player()
         {
-            Name = string.Empty; // Initialize Name to an empty string
+            Name = string.Empty; 
             Wins = 0;
         }
     }

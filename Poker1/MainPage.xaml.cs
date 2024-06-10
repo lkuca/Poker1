@@ -14,44 +14,17 @@ public partial class MainPage : ContentPage
     private int pcWins = 0;
     private const float xOffset = 50;
     private DatabaseService _databaseService;
-    private Player _player;
-    private Player _pc;
+
     public MainPage()
     {
         InitializeComponent();
         hand = new List<Card>();
         playerHand = new List<Card>();
         pcHand = new List<Card>();
+        _databaseService = new DatabaseService();
         CanvasView.PaintSurface += OnCanvasViewPaintSurface;
 
-        _databaseService = new DatabaseService("players.db");
-        InitializePlayers().Wait();
     }
-    private async Task InitializePlayers()
-    {
-        // Retrieve player and PC records from the database
-        var players = await _databaseService.GetPlayersAsync();
-
-        // Check if players exist, if not, create them
-        _player = players.FirstOrDefault(p => p.Name == "Player");
-        if (_player == null)
-        {
-            _player = new Player { Name = "Player", Wins = 0 };
-            await _databaseService.SavePlayerAsync(_player);
-        }
-
-        _pc = players.FirstOrDefault(p => p.Name == "PC");
-        if (_pc == null)
-        {
-            _pc = new Player { Name = "PC", Wins = 0 };
-            await _databaseService.SavePlayerAsync(_pc);
-        }
-
-        playerWins = _player.Wins;
-        pcWins = _pc.Wins;
-        UpdateWinLabels();
-    }
-
 
     private void OnDealButtonClicked(object sender, EventArgs e)
     {
@@ -63,7 +36,10 @@ public partial class MainPage : ContentPage
     {
         Navigation.PushModalAsync(new PokerRules());
     }
-
+    private async void OnShowStatisticsClicked(object sender, EventArgs e)
+    {
+        await Navigation.PushAsync(new StatisticsPage());
+    }
 
 
 
@@ -141,10 +117,10 @@ public partial class MainPage : ContentPage
             else if (playerValue == "12") playerValue = "Q";
             else if (playerValue == "13") playerValue = "K";
 
-            
+
 
             playerHand.Add(new Card { MySuit = playerSuit, MyValue = playerValue });
-           
+
         }
         for (int i = 0; i < 2; i++)
         {
@@ -160,42 +136,33 @@ public partial class MainPage : ContentPage
         }
 
     }
-    private void DetermineWinner()
+    private async void DetermineWinner()
     {
-
         int playerScore = EvaluateHand(playerHand);
         int pcScore = EvaluateHand(pcHand);
 
+        var record = new WinRecord { Date = DateTime.Now };
         if (playerScore > pcScore)
         {
             playerWins++;
             WinnerLabel.Text = "Player Wins!";
+            record.IsPlayerWin = true;
         }
         else if (pcScore > playerScore)
         {
             pcWins++;
             WinnerLabel.Text = "PC Wins!";
+            record.IsPcWin = true;
         }
         else
         {
             WinnerLabel.Text = "It's a Tie!";
         }
-        PlayerWinsLabel.Text = $"Player Wins: {playerWins}";
-        PcWinsLabel.Text = $"PC Wins: {pcWins}";
-        // In case of a tie, no one wins
-        UpdateWinLabels();
-        SaveScores();
-    }
-    private void UpdateWinLabels()
-    {
-        PlayerWinsLabel.Text = $"Player Wins: {playerWins}";
-        PcWinsLabel.Text = $"PC Wins: {pcWins}";
-    }
 
-    private void SaveScores()
-    {
-        _databaseService.SavePlayerAsync(_player);
-        _databaseService.SavePlayerAsync(_pc);
+        await _databaseService.SaveWinRecordAsync(record);
+
+        PlayerWinsLabel.Text = $"Player Wins: {playerWins}";
+        PcWinsLabel.Text = $"PC Wins: {pcWins}";
     }
 
     private int EvaluateHand(List<Card> hand)
@@ -226,5 +193,3 @@ public partial class MainPage : ContentPage
         return score;
     }
 }
-
-

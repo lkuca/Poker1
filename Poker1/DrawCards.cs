@@ -9,7 +9,6 @@ namespace Poker1
 {
     public class DrawCards
     {
-        
         static DrawCards()
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -22,16 +21,13 @@ namespace Poker1
                 Style = SKPaintStyle.Fill,
                 IsAntialias = true
             };
-
             var rect = new SKRect(x, y, x + 100, y + 150); // Card size: 100x150
             canvas.DrawRect(rect, paint);
-
             paint.Color = SKColors.Black;
             paint.Style = SKPaintStyle.Stroke;
             paint.StrokeWidth = 2;
             canvas.DrawRect(rect, paint);
         }
-
         public static void DrawCardSuitValue(SKCanvas canvas, Card card, float x, float y)
         {
             var textPaint = new SKPaint
@@ -42,7 +38,6 @@ namespace Poker1
                 TextAlign = SKTextAlign.Center,
                  Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
             };
-
             var suitPaint = new SKPaint
             {
                 Color = GetSuitColor(card.MySuit),
@@ -50,12 +45,9 @@ namespace Poker1
                 IsAntialias = true,
                 TextAlign = SKTextAlign.Center,
                 Typeface = SKTypeface.FromFamilyName("Arial", SKFontStyleWeight.Normal, SKFontStyleWidth.Normal, SKFontStyleSlant.Upright)
-
             };
-
             // Draw card value at the top-left
             canvas.DrawText(card.MyValue, x + 20, y + 30, textPaint);
-
             // Draw suit symbol at the center
             var suitSymbol = GetSuitSymbol(card.MySuit);
             canvas.DrawText(suitSymbol, x + 50, y + 90, suitPaint);

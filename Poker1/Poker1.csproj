@@ -48,6 +48,27 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Services\**" />
+	  <AndroidResource Remove="ViewModels\**" />
+	  <AndroidResource Remove="Views\**" />
+	  <Compile Remove="Services\**" />
+	  <Compile Remove="ViewModels\**" />
+	  <Compile Remove="Views\**" />
+	  <EmbeddedResource Remove="Services\**" />
+	  <EmbeddedResource Remove="ViewModels\**" />
+	  <EmbeddedResource Remove="Views\**" />
+	  <MauiCss Remove="Services\**" />
+	  <MauiCss Remove="ViewModels\**" />
+	  <MauiCss Remove="Views\**" />
+	  <MauiXaml Remove="Services\**" />
+	  <MauiXaml Remove="ViewModels\**" />
+	  <MauiXaml Remove="Views\**" />
+	  <None Remove="Services\**" />
+	  <None Remove="ViewModels\**" />
+	  <None Remove="Views\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="2.88.8" />
 	  <PackageReference Include="SkiaSharp.Views.Maui.Controls.Compatibility" Version="2.88.8" />
 	  <PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
@@ -62,11 +83,9 @@
 	  <MauiXaml Update="PokerRules.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Views\" />
-	  <Folder Include="ViewModels\" />
+	  <MauiXaml Update="StatisticsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 </Project>
